@@ -21,6 +21,8 @@ const burger = (props) => {
         return arr.concat(el); //arr is root array concting is adding each value of inner array to it
     },[]);
 
+    //*** Reduce() executes on each array elements here on each inner array of outer array/
+
     //console.log(transformedIngredients);
 
     if(transformedIngredients.length === 0) {
