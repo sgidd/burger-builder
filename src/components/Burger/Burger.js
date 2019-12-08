@@ -15,11 +15,13 @@ const burger = (props) => {
         });
     }) //pull out each values of inner arrays and creat one outer array having all values to get the length of ingredients addaed or not
     //reduce( (prevValue, curValue) => {} , initialValue)
-    .reduce((arr, el) => {
+    .reduce((arr, el) => { //el is inner array
+        // console.log(arr)
+        // console.log(el)
         return arr.concat(el); //arr is root array concting is adding each value of inner array to it
     },[]);
 
-    console.log(transformedIngredients);
+    //console.log(transformedIngredients);
 
     if(transformedIngredients.length === 0) {
         transformedIngredients = <p>Please start adding ingredients!</p>
