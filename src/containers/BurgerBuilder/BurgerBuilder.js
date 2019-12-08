@@ -27,6 +27,7 @@ class BurgerBuilder extends Component {
         },
         totalPrice : 4,
         purchasable : false,
+        purchasing: false,
     }
 
     updatePurchaseState = (ingredients) => {
@@ -94,7 +95,14 @@ class BurgerBuilder extends Component {
     }
 
 
+    purchaseHandler (){
+        this.setState({purchasing : true})
+    } //error: Cannot read property 'setState' of undefined
 
+
+    purchaseHandler = () => {
+        this.setState({purchasing : true})
+    }
     render(){
 
         const disabledInfo = {
@@ -107,7 +115,7 @@ class BurgerBuilder extends Component {
         //{salad: true, meat:false, ...}
         return (
             <Aux>
-                <Modal>
+                <Modal showModal={this.state.purchasing}>
                     <OrderSummary ingredients={this.state.ingredients} />
                 </Modal>
                 <Burger ingredients = {this.state.ingredients}/>
@@ -118,6 +126,7 @@ class BurgerBuilder extends Component {
                     disabledObj = {disabledInfo}
                     price = {this.state.totalPrice}
                     purchasable = {this.state.purchasable}
+                    ordered ={this.purchaseHandler}
                 />
 
                 
