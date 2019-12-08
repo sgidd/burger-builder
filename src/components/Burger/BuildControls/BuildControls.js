@@ -19,7 +19,7 @@ const buildControls = (props) => (
                 // type={ctrl.type} instead pass it throug a=es6 arrow function to avoid extra loop
                 added = { () => {props.ingredientAdded(ctrl.type)}}
                 removed = { () => {props.ingredientRemoved(ctrl.type)}}
-                />
+                disabled = {props.disabledObj[ctrl.type]}/>
             } )
       }
     </div>

@@ -45,6 +45,11 @@ class BurgerBuilder extends Component {
 
     removeIngredientHandler = (type) => {
         const oldCount = this.state.ingredients[type];
+
+        //we will face if we try to ingredient when not there bcoz state will -ve and cant create array from -ve value
+        if(oldCount <=0){
+            return; //removeIngredientHandler ends here only if val is <=0 , rest lines wont execute
+        }
         const updatedCount  = oldCount - 1;
         const updatedIngredients = {
             ...this.state.ingredients
@@ -63,6 +68,15 @@ class BurgerBuilder extends Component {
 
 
     render(){
+
+        const disabledInfo = {
+            ...this.state.ingredients
+        }
+
+        for(let key in disabledInfo){
+            disabledInfo[key] = disabledInfo[key] <= 0;
+        } 
+        //{salad: true, meat:false, ...}
         return (
             <Aux>
                 <Burger ingredients = {this.state.ingredients}/>
@@ -70,6 +84,7 @@ class BurgerBuilder extends Component {
                 <BuildControls 
                     ingredientAdded = {this.addIngredientHandler}
                     ingredientRemoved = {this.removeIngredientHandler}
+                    disabledObj = {disabledInfo}
                 />
             </Aux>
         );
