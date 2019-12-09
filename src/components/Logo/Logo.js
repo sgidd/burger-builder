@@ -7,7 +7,7 @@ import burgerLogo from '../../assets/images/burger-logo.png';
 import logoClasses from './Logo.css';
 
 const logo = (props) => (
-    <div className={logoClasses.Logo}>
+    <div className={logoClasses.Logo} style={{height: props.height}}>
         <img src={burgerLogo} />
     </div>
 );
