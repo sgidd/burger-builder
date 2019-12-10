@@ -3,7 +3,10 @@ import Aux from '../../../hoc/Auxillary';
 import Button from '../../UI/Button/Button';
 
 class OrderSummary extends Component {
+    //Performance Imptovement - shouldCompUpdate has been implemented in its parent com ie Modal so this comp no need to be the classful
+    //can be converted to functional and remove the compWillUp lifecycle hook
 
+    //Wrapping element controls the updating of wrapped element so no need to use life hooks in ordersummary or convert it to func comp
     componentWillUpdate(){
         console.log('[OrderSummary] compWillUpdate()');
     }
