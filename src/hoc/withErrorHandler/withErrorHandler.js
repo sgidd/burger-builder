@@ -39,18 +39,48 @@ const withErrorHandler = (WrappedComponent, axios) => {
         
 
         //though componentWillMount will not be  supoorted so you can se contructor instead
+        // componentWillMount(){
+        //     axios.interceptors.request.use(req => {
+        //         this.setState({error:null});
+        //         return req;
+        //     });
+
+        //     axios.interceptors.response.use(res => res, error => {
+        //         this.setState({error :error});
+        //     });
+
+        // }
+
+        //215
+        //withErrorHandler can be wrapped around multiple cmps in application
+        // problem is if we add this HOC to other components we will call componentWillMount again and again
+        // bcoz class compoenent we return in this HOC is created everytime we wrp this hoc around any comp
+        // so we are actually attching multiple interceptors in our application
+        //and we are attching them to the same axios instance
+        // so in in routing between multiple pages , old interceptors will still exist when we dont need them 
+        // so need to remove the when comp in unmounting
+        // to remove them provide reference to the above interceptors means store in prop
+
         componentWillMount(){
-            axios.interceptors.request.use(req => {
+            this.reqInterceptor = axios.interceptors.request.use(req => {
                 this.setState({error:null});
                 return req;
             });
 
-            axios.interceptors.response.use(res => res, error => {
+            this.resInterceptor = axios.interceptors.response.use(res => res, error => {
                 this.setState({error :error});
             });
 
         }
 
+        componentWillUnmount () {
+            console.log('will unmount', this.reqInterceptor , this.resInterceptor);
+            axios.interceptors.request.eject(this.reqInterceptor);
+            axios.interceptors.response.eject(this.resInterceptor);
+        }//test this in app.js
+        //215 ends
+
+        
         errorConfirmHandler = () => {
             this.setState({error:null});
         }
