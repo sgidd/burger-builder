@@ -23,7 +23,23 @@ const withErrorHandler = (WrappedComponent, axios) => {
             error :null
         }
 
-        componentDidMount(){
+        // componentDidMount(){
+        //     axios.interceptors.request.use(req => {
+        //         this.setState({error:null});
+        //         return req;
+        //     });
+
+        //     axios.interceptors.response.use(res => res, error => {
+        //         this.setState({error :error});
+        //     });
+
+        // } This didMount will excute only after the compoennetDidMouth of burgerbuilder is been executed as per the lifecycle hirearchy so we never set the interceptors
+        // //that is the reason we will dont see error modal in get request here so change the method to compWillMount
+
+        
+
+        //though componentWillMount will not be  supoorted so you can se contructor instead
+        componentWillMount(){
             axios.interceptors.request.use(req => {
                 this.setState({error:null});
                 return req;
