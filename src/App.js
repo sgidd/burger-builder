@@ -5,22 +5,23 @@ import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 
 class App extends Component {
 
-  //adding to test removal of in terceptors
-  state ={
-    show: true
-  }
+  //215 -adding to test removal of in terceptors
+  // state ={
+  //   show: true
+  // }
 
-  componentDidMount () {
-    setTimeout( () => {
-      this.setState({show: false});
-    }, 5000); // removing bugerbulider hence compwillunmount of witherrohandler will execute
-  }
-
+  // componentDidMount () {
+  //   setTimeout( () => {
+  //     this.setState({show: false});
+  //   }, 5000); // removing bugerbulider hence compwillunmount of witherrohandler will execute
+  // }
+ //215 end and one line below
   render() {
     return (
       <div>
        <Layout>
-          {this.state.show ? <BurgerBuilder /> : null}         
+          {/* {this.state.show ? <BurgerBuilder /> : null}          */}
+          <BurgerBuilder />
        </Layout>
       </div>
     );
