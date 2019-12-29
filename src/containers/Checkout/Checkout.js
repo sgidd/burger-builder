@@ -5,27 +5,28 @@ import ContactData from './ContactData/ContactData';
 
 class Checkout extends Component {
     state={
-        ingredients : {
-            salad :1,
-            cheese:1,
-            bacon:1,
-            meat:1
-        }
+        ingredients : null,
+        totalPrice : 0
     }
 
-    componentDidMount () {
+    componentWillMount () {
         console.log(this.props);
         const query = new URLSearchParams(this.props.location.search);
         const ingredients ={};
+        let price =0;
        // console.log(query.entries());
         for(let param of query.entries()){
            // console.log(param);
-            ingredients[param[0]] = +param[1];
+            if(param[0] === 'price'){
+                price = +param[1];
+            }else{
+                ingredients[param[0]] = +param[1];
+            }
         }
 
        // console.log(ingredients);
 
-        this.setState({ingredients: ingredients});
+        this.setState({ingredients: ingredients, totalPrice: price});
     }
 
     checkoutCancelledHandler = () => {
@@ -44,7 +45,18 @@ class Checkout extends Component {
                 checkoutCancelled ={ this.checkoutCancelledHandler }
                 checkoutContinued = {this.checkoutContinuedHandler }/>
                  
-                 <Route path={this.props.match.path + '/contact-data' } component={ContactData} />
+                 {/* <Route path={this.props.match.path + '/contact-data' } component={ContactData} /> */}
+                 {/* Passing data/props through routes */}
+
+                 <Route path={this.props.match.path + '/contact-data'}
+                 render={ (routeProps) => <ContactData ingredients={this.state.ingredients}  totalPrice ={this.state.totalPrice} {...routeProps}/> }
+                />
+
+               {/* we are loading the comp manually here using render hence we will not be having history or other object there:
+               2 ways to pass this 
+               1. wrap the contactdata with withRouter
+               2. to pass props we get on this comp here as routeProps
+               routeProps contains the following objects:  history,  location,  match,  staticContext. */}
             </div>
         );
     }
