@@ -34,6 +34,10 @@ class BurgerBuilder extends Component {
     }
 
     componentDidMount () {
+        //console.log(props)
+        //this comp is rendered through routing so only this will get the routing props with location, history, match but its children like burger.js
+        //to access them there user withRouter hoc and wrap the comp in export statement after import
+
         axios.get('/ingredients.json')
             .then(response => {
                 this.setState({ingredients : response.data})
@@ -123,31 +127,33 @@ class BurgerBuilder extends Component {
 
     purchaseContinueHandler = () =>{
         //alert('You Continue!');
-        this.setState({loading: true});
-        const order ={
-            ingredients : this.state.ingredients,
-            price : this.state.totalPrice,
-            customer: {
-                name : 'Sunil Gidd',
-                address: {
-                    street: 'FCI Road',
-                    zipcode: '560067',
-                    country: 'India'
-                },
-                email: 'sunilgidd051@gmail.com'
-            },
-            deliveryMethod: 'Fastest'
-        }
+        // this.setState({loading: true});
+        // const order ={
+        //     ingredients : this.state.ingredients,
+        //     price : this.state.totalPrice,
+        //     customer: {
+        //         name : 'Sunil Gidd',
+        //         address: {
+        //             street: 'FCI Road',
+        //             zipcode: '560067',
+        //             country: 'India'
+        //         },
+        //         email: 'sunilgidd051@gmail.com'
+        //     },
+        //     deliveryMethod: 'Fastest'
+        // }
 
-        axios.post('/orders.json', order)
-            .then(response => {
-                //console.log(response);
-                this.setState({loading: false, purchasing: false});
-            })
-            .catch(error => {
-               // console.log(error);
-                this.setState({loading: false, purchasing:false});
-            })
+        // axios.post('/orders.json', order)
+        //     .then(response => {
+        //         //console.log(response);
+        //         this.setState({loading: false, purchasing: false});
+        //     })
+        //     .catch(error => {
+        //        // console.log(error);
+        //         this.setState({loading: false, purchasing:false});
+        //     })
+
+        this.props.history.push('/checkout');
     }
 
     render(){
@@ -211,3 +217,7 @@ class BurgerBuilder extends Component {
 }
 
 export default withErrorHandler(BurgerBuilder, axios);
+
+
+//this comp is rendered through routing so only this will get the routing props with location, history, match but its children like burger.js will not 
+//to access them there or any comp which are not appsed through routing (means not defined Route for them )  user withRouter hoc and wrap the comp in export statement after import
