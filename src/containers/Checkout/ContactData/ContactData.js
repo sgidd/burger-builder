@@ -84,6 +84,7 @@ class ContactData extends Component {
                         {value: 'cheapest', displayValue: 'Cheapest'}
                     ]
                 },
+                // validation : {},
                 value: '',
                 valid : true
             }
@@ -124,7 +125,12 @@ class ContactData extends Component {
 
     checkValidity(value, rules){
         let isValid = true; 
-        console.log(rules)
+        //max approch for undefined 
+        //1. either add validation empty object in dropdown
+        //2. or if no valiation /rules return true directly here as below
+        //if(!rules){ return true} checkvalidity exits here for dropdown
+
+        //or my approch check if rules is true in all conditions as below
         if(rules && rules.required ){
             isValid = value.trim() !== "" && isValid;
         }
